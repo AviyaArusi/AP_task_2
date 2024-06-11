@@ -11,6 +11,8 @@ randomGenerator: generator.c
 
 primeCounter: primeCounter.c Queue.c
 	$(CC) $(CFLAGS) -o primeCounter primeCounter.c Queue.c
+	#$(CC) -fstack-usage $(CFLAGS) -o primeCounter primeCounter.c Queue.c
+
 
 .PHONY: clean
 clean:

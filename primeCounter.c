@@ -2,6 +2,11 @@
 //#include <stdbool.h>
 //#include <time.h>
 //
+//#include <stdlib.h>
+//#include <sys/resource.h>
+//
+//
+//
 //
 //// Function to check if a number is prime
 //bool isPrime(int n) {
@@ -19,6 +24,15 @@
 //int main() {
 //    int num;
 //    int total_counter = 0;
+//
+////    struct rlimit rl;
+////    rl.rlim_cur = 2 * 1024 * 1024; // Set a 2MB limit
+////    rl.rlim_max = 2 * 1024 * 1024; // Set a 2MB hard limit
+////    if(setrlimit(RLIMIT_AS, &rl) != 0)
+////    {
+////        perror("setrlimit");
+////        exit(2);
+////    }
 //
 //    // Read numbers from stdin until end of file
 //    while (scanf("%d", &num) != EOF) {
@@ -100,9 +114,10 @@ int main()
     global_queue = createQueue();  // Initialize the queue only once
 
     // Start threads
-    for (int i = 0; i < NUM_THREADS; i++) {
-//        if (pthread_create(&threads[i], NULL, processNumbers, &primeData)) {
-        if(pthread_create(&threads[i], &attr, processNumbers, &primeData) )
+    for (int i = 0; i < NUM_THREADS; i++)
+    {
+        if (pthread_create(&threads[i], NULL, processNumbers, &primeData))
+//        if(pthread_create(&threads[i], &attr, processNumbers, &primeData) )
         {
             perror("Failed to create thread");
             return 1;
